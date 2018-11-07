@@ -56,6 +56,7 @@ var fs = require('fs');
 var countriesCSV = fs.readFileSync("./countries.csv", "utf-8");
 var test = d3.csvParse(countriesCSV);
 
+console.log(test);
 
 var countries = [];
 
@@ -128,7 +129,7 @@ countries.sort(function(country1, country2){
     else return 1;
 })
 
-console.log("Country Name | State Name | City Name | Population");
+/*console.log("Country Name | State Name | City Name | Population");
 countries.map(function(country){
     country.states.map(function(state){
         state.cities.map(function(city){
@@ -137,4 +138,4 @@ countries.map(function(country){
         console.log("----------------------------------------");
     })
     console.log("++++++++++++++++++++++++++++++++++++++++++++++");
-})
+})*/
