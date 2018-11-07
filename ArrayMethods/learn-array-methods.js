@@ -381,27 +381,15 @@ var first2help = grades.find(function(element){
 ##What does it return?
     A copy of the new array it produces
 ##How can I use this? Come up (not one off the internet) with a small real world example and explain it.
-    Let's say that we are a teacher that wants to give extra attention to students doing poorly and he wants to work his way through all students under a certain
-    grade in no particular order. He might use the find method to find the first student in an array of grades corresponding to students to help.
+    Let's say that I am a manager of an apartment complex here at BYUI and I have an array of all my tenants and I want to update this array with all of the tenants
+    that will be staying in the next coming semester. Some of them are the same and so I can leave them, but some are leaving. Luckily, they were already sorted
+    so that all those staying are grouped at the beginning of the array. I could use splice with 
 
 ##Build your real world example.
 */
-/*
 
-var countries = [
-    {
-        name:"countryName",
-        states:[
-            {
-                name:"stateName",
-                cites:[
-                    {
-                        name:"cityName",
-                        population: 0
-                    }
-                ]
-            }
-        ]
-    }
-]
-*/
+
+var thisSemester = ["John", "Mark", "Matt", "Luke", "Moses", "Noah", "Joshua", "Adam", "Enoch"];
+var nextSemesterAdditions = ["Jorge", "Susan", "Shaniqua", "Chan"];
+thisSemester.splice(5,4, nextSemesterAdditions.join());
+
