@@ -264,6 +264,26 @@ var students2help = gpas.filter(function(gpa){
     return gpa < 2.8;
 })
 
+
+/*
+## Method: Filter
+
+##What does it do? make sure to explain all the parameters. If it has a function as a parameter, make sure to explain all of the parameters for that function.
+   The Filter method takes as parameters a callback function and an optional reference. The function is a test that will be applied to every element in the array
+    and the reference is the value that the function will use as "this". The function takes up to 3 parameters; the first and only required parameter
+   is the element to be tested. The second is the index of the current element. The third is the array that every was called upon. The point of the method is to
+   remove elements that do not pass the test that is given.
+##Does it edit the current array?
+    No, filter cannot mutate the array.
+##What does it return?
+    A new array with the elements that passed the test or "filtered" through.
+##How can I use this? Come up (not one off the internet) with a small real world example and explain it.
+    Let's say I'm a school administrator that wants to assign my best teachers to the students performing poorly and that I define performing poorly as having a gpa
+    of less than 2.8. I would take my gpa array and filter out the gpas that are higher than 2.8 by calling the filter method on it. 
+
+##Build your real world example.
+*/
+
 /*
 
 var countries = [
