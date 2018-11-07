@@ -266,7 +266,7 @@ var students2help = gpas.filter(function(gpa){
 
 
 /*
-## Method: Filter
+## Method: Map
 
 ##What does it do? make sure to explain all the parameters. If it has a function as a parameter, make sure to explain all of the parameters for that function.
    The Filter method takes as parameters a callback function and an optional reference. The function is a test that will be applied to every element in the array
