@@ -46,6 +46,7 @@ courses.push(newCourse);
 */
 
 //MyNewClass is removed from the array
+
 courses.pop();
 
 /*
@@ -67,7 +68,7 @@ courses.pop();
 */
 
 //Five people waiting to be called
-var orders = [77, 78, 79, 80, 81];
+var orders = [77, 78, 79, 80];
 
 //The next order to display is at the front of the array
 //so we shift it off and the second person in line is now first
@@ -117,8 +118,9 @@ orders.unshift(81);
 var scores = [90,99,72,0, 55, 100, 9001];
 
 scores.sort(function(score1, score2){
-    return a - b;
+    return score2 - score1;
 });
+
 
 var names = ["Jorge", "Susan", "Shaniqua", "Chan"];
 names.sort();
@@ -251,7 +253,8 @@ var hereComesMyBonus = gpas.some(function(gpa){
 ##Does it edit the current array?
     No, filter cannot mutate the array.
 ##What does it return?
-    A new array with the elements that passed the test or "filtered" through.
+    A new array with the elements that passed the test or "filtered" through. If no elements passed the test or we called filter on an empty array, we return an
+    empty array.
 ##How can I use this? Come up (not one off the internet) with a small real world example and explain it.
     Let's say I'm a school administrator that wants to assign my best teachers to the students performing poorly and that I define performing poorly as having a gpa
     of less than 2.8. I would take my gpa array and filter out the gpas that are higher than 2.8 by calling the filter method on it. 
@@ -269,21 +272,120 @@ var students2help = gpas.filter(function(gpa){
 ## Method: Map
 
 ##What does it do? make sure to explain all the parameters. If it has a function as a parameter, make sure to explain all of the parameters for that function.
-   The Filter method takes as parameters a callback function and an optional reference. The function is a test that will be applied to every element in the array
+   The Map method takes as parameters a callback function and an optional reference. The function will be applied to every element in the array
     and the reference is the value that the function will use as "this". The function takes up to 3 parameters; the first and only required parameter
-   is the element to be tested. The second is the index of the current element. The third is the array that every was called upon. The point of the method is to
-   remove elements that do not pass the test that is given.
+   is the element the function will be performed on. The second is the index of the current element. The third is the array that every was called upon. The point of the method is to
+   take the elements from our set (the array) and map them to a new set(the new array). If you think of mapping in mathematical terms, this method makes a whole lot of sense.
 ##Does it edit the current array?
-    No, filter cannot mutate the array.
+    Map doesn't mutate the array, though the callback function might.
 ##What does it return?
-    A new array with the elements that passed the test or "filtered" through.
+    A new array with the mapping applied to every element.
 ##How can I use this? Come up (not one off the internet) with a small real world example and explain it.
-    Let's say I'm a school administrator that wants to assign my best teachers to the students performing poorly and that I define performing poorly as having a gpa
-    of less than 2.8. I would take my gpa array and filter out the gpas that are higher than 2.8 by calling the filter method on it. 
+    Let's say that I have an array of filenames that are written in English and I want to translate them to German and I have a helper function that accepts a filename
+    as an input that creates a new file with the translated text and returns the new filename, I would call map on my array of filenames and apply my helper function to
+    each 
+
+##Build your real world example.
+*/
+var filenames = ["file1.txt", "file2.txt", "file3.txt"];
+var translatedFiles = filenames.map(x => translateFile(x));
+//OR
+
+var translatedFiles = filenames.map(function(element){
+    return translateFile(x);
+});
+
+
+/*
+## Method: Reduce
+
+##What does it do? make sure to explain all the parameters. If it has a function as a parameter, make sure to explain all of the parameters for that function.
+   The reduce method executes a reducer function that we provide on each member of the array resulting in a single value. It takes as a parameter the reducing
+   function and an optional initialValue that is the first value called to the reducing function. The reducing function takes four arguments, an accumulator
+   (which is initialized to be the optional initialValue parameter if there is one) that accumulates the return values of each run of the function, the current
+   element being processed, optionally the currentIndex or the element being processed and optionally the array itself.
+##Does it edit the current array?
+    No
+##What does it return?
+    A single value that is a result of whatever reducing function we provided
+##How can I use this? Come up (not one off the internet) with a small real world example and explain it.
+    Suppose we are a small business that wants to track the average number of hours worked by our employees and we have an array of employee objects containing,
+    among other things, the number of hours each employee worked last week. We could use reduce
 
 ##Build your real world example.
 */
 
+var employees = []; //array full of employee objects
+
+function getAverageHours(totalHours, employee){
+    return totalHours + employee.getHours();
+}
+
+//without an accumulator
+var averageHours = employees.reduce(getAverageHours) / employees.length;
+
+//with an accumulator (let's say last weeks average was 35 and we want to know the average over the two week period)
+var averageHours = employees.reduce(getAverageHours, 35) / (2 * employees.length);
+
+/*
+## Method: Join
+
+##What does it do? make sure to explain all the parameters. If it has a function as a parameter, make sure to explain all of the parameters for that function.
+   The Join method takes a string as an optional parameter. It then concatenates every element in the array into a string separated by the parameter. If there
+   was no string passed in, it uses a comma as a separator.
+##Does it edit the current array?
+    No
+##What does it return?
+    The string with all the elements concatenated together.
+##How can I use this? Come up (not one off the internet) with a small real world example and explain it.
+    Let's say I have an array of cities that I want to save to a file as a csv. The best way to do this might be using join to produce a csv string that I can use
+    to write to said file.
+
+##Build your real world example.
+*/
+
+var cities = ["New York", "San Francisco", "Chicago", "Rexburg"]
+var string2write2file = cities.join();  //If I wanted them separated by dashes I would do .join("-")
+
+/*
+## Method: Find
+
+##What does it do? make sure to explain all the parameters. If it has a function as a parameter, make sure to explain all of the parameters for that function.
+   The find method takes as parameters a function to test each element of the array against and a reference that the function will use as this. That function 
+   takes the element that is being worked on, additionally it takes 2 optional arguments the index of the element and the array.
+##Does it edit the current array?
+    No
+##What does it return?
+    The first value in the array that satisfies the test we give it. If no value passes the test or the array is empty, it returns undefined.
+##How can I use this? Come up (not one off the internet) with a small real world example and explain it.
+    Let's say that we are a teacher that wants to give extra attention to students doing poorly and he wants to work his way through all students under a certain
+    grade in no particular order. He might use the find method to find the first student in an array of grades corresponding to students to help.
+
+##Build your real world example.
+*/
+grades = [90, 99, 72, 66, 84,55, 100, 9001]; 
+
+var first2help = grades.find(function(element){
+    //We want to find the first student under a B
+    return element < 80;
+});
+
+/*
+## Method: Splice
+
+##What does it do? make sure to explain all the parameters. If it has a function as a parameter, make sure to explain all of the parameters for that function.
+   The splice method inserts elements into an array, potentially overwriting old elements. It takes as parameters an index to begin at, an optional number of
+   old elements to delete, and optionally, up to 253 elements to insert into the array (if none are specified, the old elements are just deleted and not replaced)
+##Does it edit the current array?
+    Yes, it changes the array that it is working on.
+##What does it return?
+    A copy of the new array it produces
+##How can I use this? Come up (not one off the internet) with a small real world example and explain it.
+    Let's say that we are a teacher that wants to give extra attention to students doing poorly and he wants to work his way through all students under a certain
+    grade in no particular order. He might use the find method to find the first student in an array of grades corresponding to students to help.
+
+##Build your real world example.
+*/
 /*
 
 var countries = [
