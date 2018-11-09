@@ -24,7 +24,9 @@ Country1     | c1_State5  | c1_s5_City2 | 1673652
 Country1     | c1_State5  | c1_s5_City4 | 2389094
 Country1     | c1_State5  | c1_s5_City1 | 4718091
 -------------+------------+-------------+-------------
+
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 Country2     | c2_State1  | c2_s1_City3 | 1150783
 Country2     | c2_State1  | c2_s1_City2 | 1189222
 Country2     | c2_State1  | c2_s1_City1 | 2122001
@@ -50,7 +52,9 @@ Country2     | c2_State5  | c2_s5_City3 | 2077473
 Country2     | c2_State5  | c2_s5_City1 | 4466661
 Country2     | c2_State5  | c2_s5_City2 | 4562482
 -------------+------------+-------------+-------------
+
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 Country3     | c3_State1  | c3_s1_City4 | 592884
 Country3     | c3_State1  | c3_s1_City3 | 4298613
 Country3     | c3_State1  | c3_s1_City2 | 4674912
@@ -76,7 +80,9 @@ Country3     | c3_State5  | c3_s5_City1 | 3868631
 Country3     | c3_State5  | c3_s5_City3 | 3958353
 Country3     | c3_State5  | c3_s5_City2 | 4670142
 -------------+------------+-------------+-------------
+
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 Country4     | c4_State1  | c4_s1_City4 | 2791144
 Country4     | c4_State1  | c4_s1_City1 | 3045471
 Country4     | c4_State1  | c4_s1_City2 | 3572942
@@ -102,7 +108,9 @@ Country4     | c4_State5  | c4_s5_City4 | 325994
 Country4     | c4_State5  | c4_s5_City3 | 1095643
 Country4     | c4_State5  | c4_s5_City2 | 2504622
 -------------+------------+-------------+-------------
+
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 Country5     | c5_State1  | c5_s1_City1 | 53871
 Country5     | c5_State1  | c5_s1_City3 | 71003
 Country5     | c5_State1  | c5_s1_City4 | 2345254
@@ -128,4 +136,5 @@ Country5     | c5_State5  | c5_s5_City4 | 2438034
 Country5     | c5_State5  | c5_s5_City3 | 2583903
 Country5     | c5_State5  | c5_s5_City1 | 3262151
 -------------+------------+-------------+-------------
+
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
