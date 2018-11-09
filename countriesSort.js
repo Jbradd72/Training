@@ -1,26 +1,6 @@
-
-/*
-
-var countries = [
-    {
-        name:"countryName",
-        states:[
-            {
-                name:"stateName",
-                cites:[
-                    {
-                        name:"cityName",
-                        population: 0
-                    }
-                ]
-            }
-        ]
-    }
-]
-*/
-
 var d3 = require('d3-dsv');
 var fs = require('fs');
+var stringify = require('json-stringify-pretty-compact');
 
 class Country {
     constructor(name, states){
@@ -67,49 +47,6 @@ class City{
 var countriesCSV = fs.readFileSync("./countries.csv", "utf-8");
 var parsedCities = d3.csvParse(countriesCSV);
 
-/*
-var countries = [];
-function makeCountriesArray(csvObject){
-    var countryName = csvObject["Country"];
-    var stateName = csvObject["State"];
-    var cityName = csvObject["City"]
-    var population = csvObject["Population"];
-  
-
-    var iCountry = countries.findIndex(function(element){
-        return element.name == countryName;
-    });
-    
-    if ( iCountry < 0){
-       var newCity = new City(cityName, population);
-       var cities = [newCity];
-       var newState = new State(stateName, cities);
-       var states = [newState];
-       var newCountry = new Country(countryName, states);
-
-       countries.push(newCountry);
-    }
-
-    else{
-            var country = countries[iCountry];
-            var iState = country.states.findIndex(function(element){
-                return element.name == stateName;
-        });
-
-        if (iState < 0){
-            var newCity = new City(cityName, population);
-            var cities = [newCity];
-            var newState = new State(stateName, cities);
-            country.states.push(newState);
-        }
-        else{
-            var state = country.states[iState];
-            var newCity = new City(cityName, population);
-            state.cities.push(newCity);
-        }
-    }
- }*/
-
 //We use map to turn our array of objects parsed from the csv
 //into City objects nested within state objects nested within
 //country objects grouped together in an array
@@ -122,7 +59,7 @@ var mappedCountries = parsedCities.map(function(csvObject){
     return new Country(csvObject["Country"], states);
 });
 
-//We use filter to turn merge all duplicate country objects (i.e. countries
+//We use filter to merge all duplicate country objects (i.e. countries
 //with the same name) and merge all duplicate state objects within each country
 //object
 var filteredCountries = mappedCountries.filter(function(country, iCountry){
@@ -188,13 +125,30 @@ filteredCountries.sort(function(country1, country2){
 })
 
 //Print out each city in our Countries array
-console.log("Country Name | State Name | City Name   | Population");
-filteredCountries.map(function(country){
-    country.states.map(function(state){
-        state.cities.map(function(city){
-            console.log(`${country.name}     | ${state.name}  | ${city.name} | ${city.population}`);
-        })
-        console.log("-------------+------------+-------------+-------------");
-    })
-    console.log("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-})
+console.log(stringify(filteredCountries));
+
+
+/*
+###Josh's Solution###
+Pros:
+    Very clean
+    Sorts much more effectively than mine
+    Ice Cream Sundae
+Cons:
+    The original cities array is filtered/mapped many times, 
+        as more cities are added this is probably going to become more problematic. 
+
+
+*/
+
+/*
+### My Solution:
+Basically the reverse of Josh's
+
+Pros: 
+    Probably a bit more efficient
+Cons:
+    The entire time I worked on it I was offered ice cream exactly 0 times.
+    More complex in terms of readability
+    The sorting is inefficient
+*/
