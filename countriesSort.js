@@ -27,6 +27,19 @@ class Country {
 
     merge(country){
         this.states = this.states.concat(country.states);
+        this.states = this.states.filter(function(state, iState,self){
+            var firstIndex = self.findIndex(function(findState){
+                return findState.name == state.name;
+            })
+
+            if (firstIndex != iState){
+                this.states[firstIndex].cities = this.states[firstIndex].cities.concat(this.states[iState].cities);
+                return false;
+            }
+            else
+                return true;
+            
+        }, this);
     }
 
 }
@@ -35,10 +48,6 @@ class State {
     constructor(name, cities){
         this.name = name;
         this.cities = cities;
-    }
-
-    merge(state){
-        this.cities = this.cities.concat(state.cities);
     }
 
 }
@@ -50,30 +59,6 @@ class City{
     }
 }
 
-var country1 = new Country ("USA", ["CA"])
-var country2 = new Country ("USA", ["ID"])
-
-var country3 = new Country ("USA", ["NV"])
-var country4 = new Country ("UK", ["CA"])
-var country5 = new Country ("UK", ["ID"])
-
-var country6 = new Country ("UK", ["NV"])
-var countries = [country1, country2,country3,country4, country5,country6];
-
-var fcountries = countries.filter(function(element, index){
-    var firstCountryIndex = countries.findIndex(function(findCountry){
-        return findCountry.name == element.name;
-    });
-
-    if(firstCountryIndex != index){
-        countries[firstCountryIndex].merge(countries[index]);
-        return false;
-    }
-    else
-        return true;
-})
-
-console.log(fcountries);
 var d3 = require('d3-dsv');
 var fs = require('fs');
 
@@ -146,16 +131,15 @@ var filteredCountries = mappedCountries.filter(function(country, iCountry){
     });
 
     //If it does exist, we want to merge the country objects together
-    if (firstCountryIndex < 0)
-    console.log("Something weird is going on.");
     if (firstCountryIndex != iCountry){
-        console.log("don't match");
-        mappedCountries[firstCountryIndex].merge(mappedCountries[iCountry]);
+        var foundCountry = mappedCountries[firstCountryIndex];
+        foundCountry.merge(mappedCountries[iCountry]);
         return false;
     }
     else
         return true;
 });
+
 
 filteredCountries.sort(function(country1, country2){
     country1.states.sort(function(state1, state2){
@@ -182,12 +166,14 @@ filteredCountries.sort(function(country1, country2){
     else return 1;
 })
 
-console.log("Country Name | State Name | City Name | Population");
+
+console.log("Country Name | State Name | City Name   | Population");
 filteredCountries.map(function(country){
     country.states.map(function(state){
         state.cities.map(function(city){
-            console.log(`${country.name} | ${state.name} | ${city.name} | ${city.population}`);
+            console.log(`${country.name}     | ${state.name}  | ${city.name} | ${city.population}`);
         })
+        console.log("-------------+------------+-------------+-------------");
     })
-    console.log("++++++++++++++++++++++++++++++++++++++++++++++");
+    console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 })
