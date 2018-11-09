@@ -25,8 +25,8 @@ class Country {
         this.states = states;
     }
 
-    addState(state){
-        this.states.push(state);
+    merge(country){
+        this.states = this.states.concat(country.states);
     }
 
 }
@@ -37,8 +37,8 @@ class State {
         this.cities = cities;
     }
 
-    addCity(city){
-        this.states.push(city);
+    merge(state){
+        this.cities = this.cities.concat(state.cities);
     }
 
 }
@@ -50,17 +50,37 @@ class City{
     }
 }
 
+var country1 = new Country ("USA", ["CA"])
+var country2 = new Country ("USA", ["ID"])
+
+var country3 = new Country ("USA", ["NV"])
+var country4 = new Country ("UK", ["CA"])
+var country5 = new Country ("UK", ["ID"])
+
+var country6 = new Country ("UK", ["NV"])
+var countries = [country1, country2,country3,country4, country5,country6];
+
+var fcountries = countries.filter(function(element, index){
+    var firstCountryIndex = countries.findIndex(function(findCountry){
+        return findCountry.name == element.name;
+    });
+
+    if(firstCountryIndex != index){
+        countries[firstCountryIndex].merge(countries[index]);
+        return false;
+    }
+    else
+        return true;
+})
+
+console.log(fcountries);
 var d3 = require('d3-dsv');
 var fs = require('fs');
 
 var countriesCSV = fs.readFileSync("./countries.csv", "utf-8");
-var test = d3.csvParse(countriesCSV);
+var parsedCities = d3.csvParse(countriesCSV);
 
-console.log(test);
-
-var countries = [];
-
-function makeCountriesArray(csvObject){
+/*function makeCountriesArray(csvObject){
     var countryName = csvObject["Country"];
     var stateName = csvObject["State"];
     var cityName = csvObject["City"]
@@ -99,12 +119,45 @@ function makeCountriesArray(csvObject){
             state.cities.push(newCity);
         }
     }
- }
 
 
-test.map(makeCountriesArray);
 
-countries.sort(function(country1, country2){
+
+
+
+ }*/
+
+
+var mappedCountries = parsedCities.map(function(csvObject){
+    var newCity = new City(csvObject["City"], csvObject["Population"]);
+    var cities = [newCity];
+    var newState = new State(csvObject["State"], cities);
+    var states = [newState];
+
+    return new Country(csvObject["Country"], states);
+});
+
+
+var filteredCountries = mappedCountries.filter(function(country, iCountry){
+
+    //use findIndex to check if the country already exists in the array
+    var firstCountryIndex = mappedCountries.findIndex(function(findCountry){
+        return findCountry.name == country.name;
+    });
+
+    //If it does exist, we want to merge the country objects together
+    if (firstCountryIndex < 0)
+    console.log("Something weird is going on.");
+    if (firstCountryIndex != iCountry){
+        console.log("don't match");
+        mappedCountries[firstCountryIndex].merge(mappedCountries[iCountry]);
+        return false;
+    }
+    else
+        return true;
+});
+
+filteredCountries.sort(function(country1, country2){
     country1.states.sort(function(state1, state2){
         state1.cities.sort(function(city1,city2){
             return city1.population - city2.population;
@@ -129,13 +182,12 @@ countries.sort(function(country1, country2){
     else return 1;
 })
 
-/*console.log("Country Name | State Name | City Name | Population");
-countries.map(function(country){
+console.log("Country Name | State Name | City Name | Population");
+filteredCountries.map(function(country){
     country.states.map(function(state){
         state.cities.map(function(city){
             console.log(`${country.name} | ${state.name} | ${city.name} | ${city.population}`);
         })
-        console.log("----------------------------------------");
     })
     console.log("++++++++++++++++++++++++++++++++++++++++++++++");
-})*/
+})
