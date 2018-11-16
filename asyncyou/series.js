@@ -30,7 +30,7 @@ async.series({
             done(e);
         });
     }
-  }, function done(err, bodies){
+  }, function imDone(err, bodies){
     if (err) return console.error(err);
     console.log(bodies);
 });
