@@ -22,14 +22,19 @@ var profile = [
     }
 ];
 
-var finishedObject = profile.reduce(function(row, profileObject){
+var finishedObject = profile.reduce(function(profileObject, row){
     if (row.key === "food"){
-        profileObject[row.key] = profileObject[row.key].push(row.value);
+        if (profileObject.food === undefined) 
+            profileObject.food = [];
+        profileObject.food.push(row.value);
     }
     else
         profileObject[row.key] = row.value;
+    return profileObject;
 }, {});
 finishedObject.kids = "gazillions";
+
+console.log(finishedObject);
 /*{
     {
     age: "old",

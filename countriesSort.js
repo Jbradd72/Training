@@ -135,7 +135,7 @@ Pros:
     Sorts much more effectively than mine
     Ice Cream Sundae
 Cons:
-    The original cities array is filtered/mapped many times, 
+    The original cities array is filtered/mapped many times,
         as more cities are added this is probably going to become more problematic. 
 
 
